@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="856,876" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umaf="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umafc="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files.Contracts;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="856,972.8" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:SelectFiles;assembly=SelectFiles" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umaf="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umafc="clr-namespace:UiPath.MicrosoftOffice365.Activities.Files.Contracts;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="37">
+    <scg:List x:TypeArguments="x:String" Capacity="76">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -38,10 +38,12 @@
       <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
       <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>SelectFiles</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="26">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -68,15 +70,16 @@
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>SelectFiles</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="500.8,811.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="UploadFileToOneDrive" sap:VirtualizedContainerService.HintSize="525.6,908" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <umaf:UseDriveCard ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" ContinueOnError="{x:Null}" Timeout="{x:Null}" Account="Diogo.Siqueira.T0119044@edu.atec.pt" DisplayName="Use OneDrive &amp; SharePoint" EmailAddress="Diogo.Siqueira.T0119044@edu.atec.pt" sap:VirtualizedContainerService.HintSize="459.2,718.4" sap2010:WorkflowViewState.IdRef="UseDriveCard_2" UseConnectionService="False">
+    <umaf:UseDriveCard ContinueOnError="{x:Null}" Timeout="{x:Null}" Account="Diogo.Siqueira.T0119044@edu.atec.pt" ConnectionAccountName="" ConnectionId="PleaseSelectAnAccountId" DisplayName="Use OneDrive &amp; SharePoint" EmailAddress="Diogo.Siqueira.T0119044@edu.atec.pt" sap:VirtualizedContainerService.HintSize="484,815.2" sap2010:WorkflowViewState.IdRef="UseDriveCard_2" UseConnectionService="False">
       <umaf:UseDriveCard.ApplicationId>
         <InArgument x:TypeArguments="x:String">
           <Literal x:TypeArguments="x:String" Value="" />
@@ -87,10 +90,9 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="umafc:IDriveMetadata" Name="DriveLocation" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="425.6,580" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450.4,676.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="FolderToUpload" />
-              <Variable x:TypeArguments="x:String" Name="FileToUpload" />
+              <Variable x:TypeArguments="sd:DataTable" Name="FilesToUpload" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -98,8 +100,24 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:SelectFile DisplayName="Select File" Filter="All files (*.*)|*.*" sap:VirtualizedContainerService.HintSize="384,139.2" sap2010:WorkflowViewState.IdRef="SelectFile_1" SelectedFile="[FileToUpload]" />
-            <umaf:UploadFile CloudFileName="{x:Null}" Destination="{x:Null}" Metadata="{x:Null}" Result="{x:Null}" ConflictBehavior="Replace" DisplayName="Upload File" DriveMetadata="[DriveLocation]" sap:VirtualizedContainerService.HintSize="384,308" sap2010:WorkflowViewState.IdRef="UploadFile_2" LocalFilePath="[FileToUpload]" />
+            <s:SelectFiles DisplayName="Select files" Files="[FilesToUpload]" sap:VirtualizedContainerService.HintSize="408.8,22.4" sap2010:WorkflowViewState.IdRef="SelectFiles_1" />
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[FilesToUpload]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="408.8,521.6" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="375.2,400.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <umaf:UploadFile CloudFileName="{x:Null}" Destination="{x:Null}" Metadata="{x:Null}" Result="{x:Null}" ConflictBehavior="Replace" DisplayName="Upload File" DriveMetadata="[DriveLocation]" sap:VirtualizedContainerService.HintSize="333.6,308" sap2010:WorkflowViewState.IdRef="UploadFile_2" LocalFilePath="[CurrentRow(0).ToString]" />
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+            </ui:ForEachRow>
           </Sequence>
         </ActivityAction>
       </umaf:UseDriveCard.Body>
@@ -108,6 +126,12 @@
           <Literal x:TypeArguments="x:String" Value="" />
         </InArgument>
       </umaf:UseDriveCard.TenantId>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </umaf:UseDriveCard>
   </Sequence>
 </Activity>
